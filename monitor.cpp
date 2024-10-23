@@ -14,7 +14,7 @@ void sleep() {
     }
 }
 
-bool checkThreshold(int lowThresh,int highThresh,float value) {
+bool checkThreshold(int lowThresh, int highThresh, float value) {
     if ((value > highThresh) || (value < lowThresh)) {
         return true;
     }
