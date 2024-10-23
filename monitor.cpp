@@ -13,17 +13,30 @@ void sleep() {
         sleep_for(seconds(1));
     }
 }
+
+bool checkThreshold(int lowThresh, int highThresh,float value) {
+    if ((value > highThresh) || (value < lowThresh)) {
+        return true;
+    }
+    return false;
+}
 int checkTemprature(int temperature) {
-    if (temperature > 102 || temperature < 95) {
+    if (checkThreshold(95, 102, temperature)) {
+        cout<< "Temperature is critical!\n";
+        sleep();
+        return 0;
+   }
+   /* if (temperature > 102 || temperature < 95) {
         cout << "Temperature is critical!\n";
         sleep();
         return 0;
-    }
+    }*/
     return 1;
 }
 
 int checkPulserate(float pulseRate) {
-    if (pulseRate < 60 || pulseRate > 100) {
+    
+    if (checkThreshold(60, 100, pulseRate)) {
         cout << "Pulse Rate is out of range!\n";
         sleep();
         return 0;
