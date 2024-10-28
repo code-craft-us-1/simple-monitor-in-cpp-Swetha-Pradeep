@@ -42,21 +42,21 @@ void initializeSPo2Limits() {
     spo2Limits.push_back(std::make_pair(80, std::numeric_limits<float>::max()));
     spo2Messages.push_back("Normal SPO2");
 }
+
 void writeTempratureMessage(std::string message) {
    std::cout << message << "\n";
 }
-
 
 void writePulseMessage(std::string message) {
     std::cout << message << "\n";
     
 }
 
-
 void writeSPo2Message(std::string message) {
     std::cout << message << "\n";
 
 }
+
 bool isTempraturNormal(int value){
     int cnt=0;
     for (auto i = tempratureLimits.begin(); i != tempratureLimits.end(); i++) {
@@ -80,9 +80,6 @@ bool isTempraturNormal(int value){
         else{
             return false;
         }
-        
-       
-
     }
 }
 
@@ -109,9 +106,6 @@ bool isPulseNormal(float value){
         else{
             return false;
         }
-        
-       
-
     }
 }
 
@@ -138,9 +132,6 @@ bool isSpo2Normal(int value){
         else{
             return false;
         }
-        
-       
-
     }
 }
 
