@@ -60,15 +60,15 @@ bool isTempraturNormal(int value) {
     for (auto i = tempratureLimits.begin(); i != tempratureLimits.end(); i++) {
         if (i->first == std::numeric_limits<int>::min() && value < i->second) {
             writeTempratureMessage(tempratureMessages[0]);
-        }else if(i->second == std::numeric_limits<int>::max() && value > i->first) {
+        }else if (i->second == std::numeric_limits<int>::max() && value > i->first) {
             writeTempratureMessage(tempratureMessages[4]);
         }else if ((value >= i->first) && (value <= i->second)) {
             writeTempratureMessage(tempratureMessages[cnt]);
         }
         cnt++;
-        if(tempratureMessages[cnt-1].find("Normal") != std::string::npos) {
+        if (tempratureMessages[cnt-1].find("Normal") != std::string::npos) {
            return true;
-        }else{
+        }else {
             return false;
         }
     }
@@ -80,7 +80,7 @@ bool isPulseNormal(float value) {
         if(i->first == std::numeric_limits<float>::min() && value < i->second) {
             writePulseMessage(pulseRateMessages[0]);
         }
-        else if(i->second == std::numeric_limits<float>::max() && value > i->first) {
+        else if (i->second == std::numeric_limits<float>::max() && value > i->first) {
             writePulseMessage(pulseRateMessages[2]);
         }
         else if ((value >= i->first) && (value <= i->second)) {
