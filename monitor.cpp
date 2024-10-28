@@ -44,38 +44,33 @@ void initializeSPo2Limits() {
 }
 
 void writeTempratureMessage(std::string message) {
-   std::cout << message << "\n";
+    std::cout << message << "\n";
 }
 
 void writePulseMessage(std::string message) {
     std::cout << message << "\n";
-    
 }
 
 void writeSPo2Message(std::string message) {
     std::cout << message << "\n";
-
 }
 
 bool isTempraturNormal(int value){
     int cnt=0;
     for (auto i = tempratureLimits.begin(); i != tempratureLimits.end(); i++) {
-        if(i->first == std::numeric_limits<int>::min() && value < i->second){
+        if(i->first == std::numeric_limits<int>::min() && value < i->second) {
             writeTempratureMessage(tempratureMessages[0]);
             
         }
-        else if(i->second == std::numeric_limits<int>::max() && value > i->first){
+        else if(i->second == std::numeric_limits<int>::max() && value > i->first) {
             writeTempratureMessage(tempratureMessages[4]);
-            
         }
         else if ((value >= i->first) && (value <= i->second)) {
             writeTempratureMessage(tempratureMessages[cnt]);
-            
         }
         cnt++;
-        if(tempratureMessages[cnt-1].find("Normal") != std::string::npos){
-            
-            return true;
+        if(tempratureMessages[cnt-1].find("Normal") != std::string::npos) {
+           return true;
         }
         else{
             return false;
@@ -83,25 +78,21 @@ bool isTempraturNormal(int value){
     }
 }
 
-bool isPulseNormal(float value){
+bool isPulseNormal(float value) {
     int cnt=0;
     for (auto i = pulseRateLimits.begin(); i != pulseRateLimits.end(); i++) {
-        if(i->first == std::numeric_limits<float>::min() && value < i->second){
+        if(i->first == std::numeric_limits<float>::min() && value < i->second) {
             writePulseMessage(pulseRateMessages[0]);
-            
         }
-        else if(i->second == std::numeric_limits<float>::max() && value > i->first){
+        else if(i->second == std::numeric_limits<float>::max() && value > i->first) {
             writePulseMessage(pulseRateMessages[2]);
-            
         }
         else if ((value >= i->first) && (value <= i->second)) {
             writePulseMessage(pulseRateMessages[cnt]);
-            
         }
         cnt++;
-        if(pulseRateMessages[cnt-1].find("Normal") != std::string::npos){
-            
-            return true;
+        if(pulseRateMessages[cnt-1].find("Normal") != std::string::npos) {
+           return true;
         }
         else{
             return false;
