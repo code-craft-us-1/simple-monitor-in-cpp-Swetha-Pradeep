@@ -1,4 +1,4 @@
-#include "./monitor.h"
+#include "monitor.h"
 #include <assert.h>
 #include <thread>
 #include <chrono>
