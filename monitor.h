@@ -1,12 +1,13 @@
+#pragma once
 #include <list>
 #include <utility>
 #include <vector>
-#pragma once
-std::list<std::pair<int,int>> tempratureLimits;
+
+std::list<std::pair<int , int>> tempratureLimits;
 std::vector<std::string> tempratureMessages;
-std::list<std::pair<float,float>> pulseRateLimits;
+std::list<std::pair<float , float>> pulseRateLimits;
 std::vector<std::string> pulseRateMessages;
-std::list<std::pair<float,float>> spo2Limits;
+std::list<std::pair<float , float>> spo2Limits;
 std::vector<std::string> spo2Messages;
 void initializeTempratureLimits();
 
