@@ -75,22 +75,19 @@ bool isTempraturNormal(int value) {
 }
 
 bool isPulseNormal(float value) {
-    int cnt=0;
+    int cnt = 0;
     for (auto i = pulseRateLimits.begin(); i != pulseRateLimits.end(); i++) {
-        if(i->first == std::numeric_limits<float>::min() && value < i->second) {
+        if (i->first == std::numeric_limits<float>::min() && value < i->second) {
             writePulseMessage(pulseRateMessages[0]);
-        }
-        else if (i->second == std::numeric_limits<float>::max() && value > i->first) {
+        } else if (i->second == std::numeric_limits<float>::max() && value > i->first) {
             writePulseMessage(pulseRateMessages[2]);
-        }
-        else if ((value >= i->first) && (value <= i->second)) {
+        } else if ((value >= i->first) && (value <= i->second)) {
             writePulseMessage(pulseRateMessages[cnt]);
         }
         cnt++;
         if(pulseRateMessages[cnt-1].find("Normal") != std::string::npos) {
            return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -99,24 +96,17 @@ bool isPulseNormal(float value) {
 bool isSpo2Normal(int value){
     int cnt=0;
     for (auto i = spo2Limits.begin(); i != spo2Limits.end(); i++) {
-        if(i->first == std::numeric_limits<float>::min() && value < i->second){
+        if (i->first == std::numeric_limits<float>::min() && value < i->second) {
             writeSPo2Message(spo2Messages[0]);
-            
-        }
-        else if(i->second == std::numeric_limits<float>::max() && value > i->first){
+        } else if (i->second == std::numeric_limits<float>::max() && value > i->first) {
             writeSPo2Message(spo2Messages[1]);
-            
-        }
-        else if ((value >= i->first) && (value <= i->second)) {
+        } else if ((value >= i->first) && (value <= i->second)) {
             writeSPo2Message(spo2Messages[cnt]);
-            
         }
         cnt++;
-        if(spo2Messages[cnt-1].find("Normal") != std::string::npos){
-            
+        if (spo2Messages[cnt-1].find("Normal") != std::string::npos){
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
