@@ -3,7 +3,7 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
-using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
+using std::cout , std::flush , std::this_thread::sleep_for , std::chrono::seconds;
 
 void sleep() {
     for (int i = 0; i < 6; i++) {
@@ -85,7 +85,7 @@ bool isPulseNormal(float value) {
             writePulseMessage(pulseRateMessages[cnt]);
         }
         cnt++;
-        if(pulseRateMessages[cnt-1].find("Normal") != std::string::npos) {
+        if (pulseRateMessages[cnt-1].find("Normal") != std::string::npos) {
            return true;
         } else {
             return false;
@@ -93,8 +93,8 @@ bool isPulseNormal(float value) {
     }
 }
 
-bool isSpo2Normal(int value){
-    int cnt=0;
+bool isSpo2Normal(int value) {
+    int cnt = 0;
     for (auto i = spo2Limits.begin(); i != spo2Limits.end(); i++) {
         if (i->first == std::numeric_limits<float>::min() && value < i->second) {
             writeSPo2Message(spo2Messages[0]);
@@ -104,7 +104,7 @@ bool isSpo2Normal(int value){
             writeSPo2Message(spo2Messages[cnt]);
         }
         cnt++;
-        if (spo2Messages[cnt-1].find("Normal") != std::string::npos){
+        if (spo2Messages[cnt-1].find("Normal") != std::string::npos) {
             return true;
         } else {
             return false;
