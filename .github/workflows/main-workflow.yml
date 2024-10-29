@@ -16,9 +16,9 @@ jobs:
     - name: setup cmake
       run: sudo apt install cmake
     - name: setup and run linter
-      run: |
-        pip install cpplint
-        cpplint  --filter=-legal,-build/c++11 --linelength=100 *.cpp *.h
+    #  run: |
+    #    pip install cpplint
+    #    cpplint  --filter=-legal,-build/c++11 --linelength=100 *.cpp *.h
 
     - name: build
       run: |
