@@ -108,7 +108,7 @@ bool isPulseNormal(float value) {
     return false;
 }
 
-bool isSpO2Normal(int value) {
+bool isSPO2Normal(int value) {
     int cnt = 0;
     for (auto i = spo2Limits.begin(); i != spo2Limits.end(); i++) {
         if (i->first == std::numeric_limits<float>::min() && value < i->second) {
@@ -133,5 +133,5 @@ int vitalsOk(float temperature, float pulseRate, float spo2) {
     initializeTempratureLimits();
     initializePulseRateLimits();
     initializeSPo2Limits();
-    return isTempraturNormal(temperature) && isPulseNormal(pulseRate) && isSpO2Normal(spo2);
+    return isTempraturNormal(temperature) && isPulseNormal(pulseRate) && isSPO2Normal(spo2);
 }
