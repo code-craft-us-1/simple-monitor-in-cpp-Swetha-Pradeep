@@ -3,12 +3,12 @@
 #include <utility>
 #include <vector>
 #include <string>
-std::list<std::pair<int , int>> tempratureLimits;
-std::vector<std::string> tempratureMessages;
-std::list<std::pair<float , float>> pulseRateLimits;
-std::vector<std::string> pulseRateMessages;
-std::list<std::pair<float , float>> spo2Limits;
-std::vector<std::string> spo2Messages;
+extern std::list<std::pair<int , int>> tempratureLimits;
+extern std::vector<std::string> tempratureMessages;
+extern std::list<std::pair<float , float>> pulseRateLimits;
+extern std::vector<std::string> pulseRateMessages;
+extern std::list<std::pair<float , float>> spo2Limits;
+extern std::vector<std::string> spo2Messages;
 void initializeTempratureLimits();
 
 void initializePulseRateLimits();
