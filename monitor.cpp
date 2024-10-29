@@ -67,6 +67,7 @@ void writeSPo2Message(std::string message) {
 
 bool isTempraturNormal(int value) {
     int cnt = 0;
+    std::cout<<"value is :"<<value<<"\n";
     for (auto i = tempratureLimits.begin(); i != tempratureLimits.end(); i++) {
         if (i->first == std::numeric_limits<int>::min() && value < i->second) {
             writeTempratureMessage(tempratureMessages[0]);
@@ -81,7 +82,7 @@ bool isTempraturNormal(int value) {
         cnt++;
     }
 
-    if (tempratureMessages[cnt-1].find("Normal") != std::string::npos) {
+    if (tempratureMessages[cnt].find("Normal") != std::string::npos) {
         return true;
     }
     return false;
