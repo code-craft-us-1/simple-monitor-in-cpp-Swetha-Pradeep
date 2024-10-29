@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <limits>
+#include <list>
 using std::cout , std::flush , std::this_thread::sleep_for , std::chrono::seconds;
 std::list<std::pair<int , int>> tempratureLimits;
 std::vector<std::string> tempratureMessages;
