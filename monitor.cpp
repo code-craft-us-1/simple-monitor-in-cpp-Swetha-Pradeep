@@ -133,5 +133,5 @@ int vitalsOk(float temperature, float pulseRate, float spo2) {
     initializeTempratureLimits();
     initializePulseRateLimits();
     initializeSPo2Limits();
-    return isTempraturNormal(temperature) && isPulseNormal(pulseRate) && isSpo2Normal(spo2);
+    return isTempraturNormal(temperature) && isPulseNormal(pulseRate) && isSpO2Normal(spo2);
 }
