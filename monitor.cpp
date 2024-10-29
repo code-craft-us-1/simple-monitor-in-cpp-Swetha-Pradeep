@@ -93,12 +93,15 @@ bool isPulseNormal(float value) {
     for (auto i = pulseRateLimits.begin(); i != pulseRateLimits.end(); i++) {
         if (i->first == std::numeric_limits<float>::min() && value < i->second) {
             writePulseMessage(pulseRateMessages[0]);
+            std::cout<<pulseRateMessages[0]<<"\n";
             break;
         } else if (i->second == std::numeric_limits<float>::max() && value > i->first) {
             writePulseMessage(pulseRateMessages[2]);
+            std::cout<<pulseRateMessages[2]<<"\n";
             break;
         } else if ((value >= i->first) && (value <= i->second)) {
             writePulseMessage(pulseRateMessages[cnt]);
+            std::cout<<pulseRateMessages[cnt]<<"\n";
             break;
         }
         cnt++;
