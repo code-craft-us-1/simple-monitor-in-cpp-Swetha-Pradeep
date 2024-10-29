@@ -119,7 +119,7 @@ bool isSpo2Normal(int value) {
     }
     if (spo2Messages[cnt-1].find("Normal") != std::string::npos) {
         return true;
-    } 
+    }
     return false;
 }
 
