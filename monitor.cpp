@@ -41,7 +41,7 @@ void initializePulseRateLimits() {
     pulseRateLimits.push_back(std::make_pair(std::numeric_limits<float>::min(), 60));
     pulseRateMessages.push_back("WARNING:BRADYCHARDIA");
     pulseRateLimits.push_back(std::make_pair(60, 100));
-    pulseRateMessages.push_back("NORMAL Pulse");
+    pulseRateMessages.push_back("Normal Pulse");
     pulseRateLimits.push_back(std::make_pair(100, std::numeric_limits<float>::max()));
     pulseRateMessages.push_back("WARNING:TACHYCHARDIA");
 }
