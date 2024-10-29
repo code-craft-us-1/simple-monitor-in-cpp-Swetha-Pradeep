@@ -103,7 +103,7 @@ bool isPulseNormal(float value) {
         }
         cnt++;
     }
-    if (pulseRateMessages[cnt-1].find("Normal") != std::string::npos) {
+    if (pulseRateMessages[cnt].find("Normal") != std::string::npos) {
         return true;
     }
     return false;
@@ -124,7 +124,7 @@ bool isSPO2Normal(int value) {
         }
         cnt++;
     }
-    if (spo2Messages[cnt-1].find("Normal") != std::string::npos) {
+    if (spo2Messages[cnt].find("Normal") != std::string::npos) {
         return true;
     }
     return false;
