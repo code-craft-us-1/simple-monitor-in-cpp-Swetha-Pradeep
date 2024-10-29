@@ -108,7 +108,7 @@ bool isPulseNormal(float value) {
     return false;
 }
 
-bool isSpo2Normal(int value) {
+bool isSpO2Normal(int value) {
     int cnt = 0;
     for (auto i = spo2Limits.begin(); i != spo2Limits.end(); i++) {
         if (i->first == std::numeric_limits<float>::min() && value < i->second) {
