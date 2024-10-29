@@ -8,7 +8,12 @@
 #include <string>
 #include <limits>
 using std::cout , std::flush , std::this_thread::sleep_for , std::chrono::seconds;
-
+std::list<std::pair<int , int>> tempratureLimits;
+std::vector<std::string> tempratureMessages;
+std::list<std::pair<float , float>> pulseRateLimits;
+std::vector<std::string> pulseRateMessages;
+std::list<std::pair<float , float>> spo2Limits;
+std::vector<std::string> spo2Messages;
 void sleep() {
     for (int i = 0; i < 6; i++) {
         cout << "\r* " << flush;
