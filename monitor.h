@@ -12,7 +12,7 @@ extern std::vector<std::string> spo2Messages;
 void initializeTempratureLimits();
 
 void initializePulseRateLimits();
-void initializeSPO2Limits();
+void initializeSPo2Limits();
 bool isTempraturNormal(int value);
 bool isPulseNormal(float value);
 bool isSPO2Normal(int value);

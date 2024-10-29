@@ -6,6 +6,7 @@ TEST(Monitor, NotOkWhenAnyVitalIsOffRange) {
   initializeTempratureLimits();
   initializePulseRateLimits();
   initializeSPo2Limits();
+  //initializeSPo2Limits();
   isTempraturNormal(99);
  // ASSERT_TRUE(isTempraturNormal(99));
   /* ASSERT_FALSE(isTempraturNormal(94.1));
