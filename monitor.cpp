@@ -76,8 +76,8 @@ bool isTempraturNormal(int value) {
     }
 
     if (tempratureMessages[cnt-1].find("Normal") != std::string::npos) {
-           return true;
-    } 
+        return true;
+    }
     return false;
 }
 
@@ -97,7 +97,7 @@ bool isPulseNormal(float value) {
         cnt++;
     }
     if (pulseRateMessages[cnt-1].find("Normal") != std::string::npos) {
-          return true;
+        return true;
     }
     return false;
 }
@@ -118,7 +118,7 @@ bool isSpo2Normal(int value) {
         cnt++;
     }
     if (spo2Messages[cnt-1].find("Normal") != std::string::npos) {
-            return true;
+        return true;
     } 
     return false;
 }
