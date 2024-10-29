@@ -73,7 +73,6 @@ bool isTempraturNormal(int value) {
             break;
         }
         cnt++;
-        
     }
 
     if (tempratureMessages[cnt-1].find("Normal") != std::string::npos) {
@@ -97,6 +96,7 @@ bool isPulseNormal(float value) {
         }
         cnt++;
     }
+    
     if (pulseRateMessages[cnt-1].find("Normal") != std::string::npos) {
           return true;
     }
