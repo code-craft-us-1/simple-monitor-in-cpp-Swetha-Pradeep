@@ -1,8 +1,11 @@
-#include "monitor.h"
+#include "./monitor.h"
 #include <assert.h>
 #include <thread>
 #include <chrono>
 #include <iostream>
+#include <utility>
+#include <vector>
+#include <string>
 using std::cout , std::flush , std::this_thread::sleep_for , std::chrono::seconds;
 
 void sleep() {
