@@ -8,6 +8,8 @@
 #include <string>
 #include <limits>
 #include <list>
+#include <functional>
+#include <unordered_map>
 using std::cout , std::flush , std::this_thread::sleep_for , std::chrono::seconds;
 std::list<std::pair<int , int>> tempratureLimits;
 std::vector<std::string> tempratureMessages;
@@ -88,7 +90,7 @@ void writeMessage(std::string message) {
 
 
 
-bool isParameterNormal(double value,ParameterType type){
+/* bool isParameterNormal(double value,ParameterType type){
     switch(type){
         case TEMPERATURE:
              return isTempraturNormal(value);
@@ -99,7 +101,21 @@ bool isParameterNormal(double value,ParameterType type){
         }
     return false;        
 }
+ */
 
+bool isParameterNormal(double value, ParameterType type) {
+    static const std::unordered_map<ParameterType, std::function<bool(double)>> checkFunctions = {
+        { TEMPERATURE, [](double v) { return isTempraturNormal(static_cast<int>(v)); } },
+        { PULSE_RATE, [](double v) { return isPulseNormal(static_cast<float>(v)); } },
+        { SPO2, [](double v) { return isSPO2Normal(static_cast<float>(v)); } }
+    };
+
+    auto it = checkFunctions.find(type);
+    if (it != checkFunctions.end()) {
+        return it->second(value);
+    }
+    return false;
+}
 
 bool isTempraturNormal(int value) {
     int cnt = 0;
