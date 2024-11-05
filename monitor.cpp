@@ -15,6 +15,13 @@ std::list<std::pair<float , float>> pulseRateLimits;
 std::vector<std::string> pulseRateMessages;
 std::list<std::pair<float , float>> spo2Limits;
 std::vector<std::string> spo2Messages;
+
+enum ParameterType {
+    TEMPERATURE,
+    PULSE_RATE,
+    SPO2
+};
+
 void sleep() {
     for (int i = 0; i < 6; i++) {
         cout << "\r* " << flush;
@@ -53,30 +60,37 @@ void initializeSPo2Limits() {
     spo2Messages.push_back("Normal SPO2");
 }
 
-void writeTempratureMessage(std::string message) {
+void writeMessage(std::string message) {
     std::cout << message << "\n";
 }
 
-void writePulseMessage(std::string message) {
-    std::cout << message << "\n";
+
+
+bool isParameterNormal(double value,ParameterType type){
+    switch(type){
+        case TEMPERATURE:
+             return isTempraturNormal(value);
+        case PULSE_RATE:
+             return isPulseNormal(value);
+        case SPO2:
+            return isSPO2Normal(value);
+        }
+    return false;        
 }
 
-void writeSPo2Message(std::string message) {
-    std::cout << message << "\n";
-}
 
 bool isTempraturNormal(int value) {
     int cnt = 0;
     std::cout<<"value is :"<<value<<"\n";
     for (auto i = tempratureLimits.begin(); i != tempratureLimits.end(); i++) {
         if (i->first == std::numeric_limits<int>::min() && value < i->second) {
-            writeTempratureMessage(tempratureMessages[0]);
+            writeMessage(tempratureMessages[0]);
             break;
         } else if (i->second == std::numeric_limits<int>::max() && value > i->first) {
-            writeTempratureMessage(tempratureMessages[4]);
+            writeMessage(tempratureMessages[4]);
             break;
         } else if ((value >= i->first) && (value <= i->second)) {
-            writeTempratureMessage(tempratureMessages[cnt]);
+            writeMessage(tempratureMessages[cnt]);
             break;
         }
         cnt++;
@@ -92,15 +106,15 @@ bool isPulseNormal(float value) {
     int cnt = 0;
     for (auto i = pulseRateLimits.begin(); i != pulseRateLimits.end(); i++) {
         if (i->first == std::numeric_limits<float>::min() && value < i->second) {
-            writePulseMessage(pulseRateMessages[0]);
+            writeMessage(pulseRateMessages[0]);
             std::cout<<pulseRateMessages[0]<<"\n";
             break;
         } else if (i->second == std::numeric_limits<float>::max() && value > i->first) {
-            writePulseMessage(pulseRateMessages[2]);
+            writeMessage(pulseRateMessages[2]);
             std::cout<<pulseRateMessages[2]<<"\n";
             break;
         } else if ((value >= i->first) && (value <= i->second)) {
-            writePulseMessage(pulseRateMessages[cnt]);
+            writeMessage(pulseRateMessages[cnt]);
             std::cout<<pulseRateMessages[cnt]<<"\n";
             break;
         }
@@ -116,13 +130,13 @@ bool isSPO2Normal(int value) {
     int cnt = 0;
     for (auto i = spo2Limits.begin(); i != spo2Limits.end(); i++) {
         if (i->first == std::numeric_limits<float>::min() && value < i->second) {
-            writeSPo2Message(spo2Messages[0]);
+            writeMessage(spo2Messages[0]);
             break;
         } else if (i->second == std::numeric_limits<float>::max() && value > i->first) {
-            writeSPo2Message(spo2Messages[1]);
+            writeMessage(spo2Messages[1]);
             break;
         } else if ((value >= i->first) && (value <= i->second)) {
-            writeSPo2Message(spo2Messages[cnt]);
+            writeMessage(spo2Messages[cnt]);
             break;
         }
         cnt++;
@@ -134,5 +148,5 @@ bool isSPO2Normal(int value) {
 }
 
 int vitalsOk(float temperature, float pulseRate, float spo2) {
-    return isTempraturNormal(temperature) && isPulseNormal(pulseRate) && isSPO2Normal(spo2);
+    return isParameterNormal(temperature,ParameterType::TEMPERATURE) && isParameterNormal(pulseRate,ParameterType::PULSE_RATE) && isParameterNormal(spo2,ParameterType::SPO2);
 }
