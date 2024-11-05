@@ -31,33 +31,55 @@ void sleep() {
     }
 }
 
+template <typename T>
+void initializeLimits(std::list<std::pair<T, T>>& limits, std::vector<std::string>& messages, const std::vector<std::pair<T, T>>& limitPairs, const std::vector<std::string>& limitMessages) {
+    for (size_t i = 0; i < limitPairs.size(); ++i) {
+        limits.push_back(limitPairs[i]);
+        messages.push_back(limitMessages[i]);
+    }
+}
 void initializeTempratureLimits() {
-    tempratureLimits.push_back(std::make_pair(std::numeric_limits<int>::min(), 95));
-    tempratureMessages.push_back("Warning:HYPO_THERMIA");
-    tempratureLimits.push_back(std::make_pair(95, 96.53));
-    tempratureMessages.push_back("Warning:NEAR_HYPO");
-    tempratureLimits.push_back(std::make_pair(96.54, 100.47));
-    tempratureMessages.push_back("Normal Temprature");
-    tempratureLimits.push_back(std::make_pair(100.48, 102));
-    tempratureMessages.push_back("WARNING:NEAR_HYPER");
-    tempratureLimits.push_back(std::make_pair(102, std::numeric_limits<int>::max()));
-    tempratureMessages.push_back("HYPER_THERMIA");
+    std::vector<std::pair<int, int>> tempLimits = {
+        {std::numeric_limits<int>::min(), 95},
+        {95, 96.53},
+        {96.54, 100.47},
+        {100.48, 102},
+        {102, std::numeric_limits<int>::max()}
+    };
+    std::vector<std::string> tempMessages = {
+        "Warning:HYPO_THERMIA",
+        "Warning:NEAR_HYPO",
+        "Normal Temprature",
+        "WARNING:NEAR_HYPER",
+        "HYPER_THERMIA"
+    };
+    initializeLimits(tempratureLimits, tempratureMessages, tempLimits, tempMessages);
 }
 
 void initializePulseRateLimits() {
-    pulseRateLimits.push_back(std::make_pair(std::numeric_limits<float>::min(), 60));
-    pulseRateMessages.push_back("WARNING:BRADYCHARDIA");
-    pulseRateLimits.push_back(std::make_pair(60, 100));
-    pulseRateMessages.push_back("Normal Pulse");
-    pulseRateLimits.push_back(std::make_pair(100, std::numeric_limits<float>::max()));
-    pulseRateMessages.push_back("WARNING:TACHYCHARDIA");
+    std::vector<std::pair<float, float>> pulseLimits = {
+        {std::numeric_limits<float>::min(), 60},
+        {60, 100},
+        {100, std::numeric_limits<float>::max()}
+    };
+    std::vector<std::string> pulseMessages = {
+        "WARNING:BRADYCHARDIA",
+        "NORMAL Pulse",
+        "WARNING:TACHYCHARDIA"
+    };
+    initializeLimits(pulseRateLimits, pulseRateMessages, pulseLimits, pulseMessages);
 }
 
 void initializeSPo2Limits() {
-    spo2Limits.push_back(std::make_pair(std::numeric_limits<float>::min(), 80));
-    spo2Messages.push_back("WARNING:HYPOXEMIA");
-    spo2Limits.push_back(std::make_pair(80, std::numeric_limits<float>::max()));
-    spo2Messages.push_back("Normal SPO2");
+    std::vector<std::pair<float, float>> spo2ParamLimits = {
+        {std::numeric_limits<float>::min(), 80},
+        {80, std::numeric_limits<float>::max()}
+    };
+    std::vector<std::string> spo2Messages = {
+        "WARNING:HYPOXEMIA",
+        "Normal SPO2"
+    };
+    initializeLimits(spo2Limits, spo2Messages, spo2ParamLimits, spo2Messages);
 }
 
 void writeMessage(std::string message) {
