@@ -40,6 +40,8 @@ void initializeLimits(std::list<std::pair<T, T>>& limits, std::vector<std::strin
         messages.push_back(limitMessages[i]);
     }
 }
+
+
 void initializeTempratureLimits() {
     std::vector<std::pair<int, int>> tempLimits = {
         {std::numeric_limits<int>::min(), 95},
@@ -87,8 +89,31 @@ void initializeSPo2Limits() {
 void writeMessage(std::string message) {
     std::cout << message << "\n";
 }
+template <typename T>
+bool isMinLimit(T value, const std::pair<T,T>& limit, const std::string& message) {
+    if (limit.first == std::numeric_limits<T>::min() && value < limit.second) {
+        writeMessage(message);
+        return true;
+    }
+    return false;
+}
+template <typename T>
+bool isMaxLimit(T value, const std::pair<T,T>& limit, const std::string& message) {
+    if (limit.second == std::numeric_limits<T>::max() && value > limit.first) {
+        writeMessage(message);
+        return true;
+    }
+    return false;
+}
 
-
+template<typename T>
+bool isWithinLimit(T value, const std::pair<T,T>& limit, const std::string& message) {
+    if (value >= limit.first && value <= limit.second) {
+        writeMessage(message);
+        return true;
+    }
+    return false;
+}
 
 /* bool isParameterNormal(double value,ParameterType type){
     switch(type){
@@ -117,72 +142,48 @@ bool isParameterNormal(double value, ParameterType type) {
     return false;
 }
 
+
 bool isTempraturNormal(int value) {
     int cnt = 0;
-    std::cout<<"value is :"<<value<<"\n";
-    for (auto i = tempratureLimits.begin(); i != tempratureLimits.end(); i++) {
-        if (i->first == std::numeric_limits<int>::min() && value < i->second) {
-            writeMessage(tempratureMessages[0]);
-            break;
-        } else if (i->second == std::numeric_limits<int>::max() && value > i->first) {
-            writeMessage(tempratureMessages[4]);
-            break;
-        } else if ((value >= i->first) && (value <= i->second)) {
-            writeMessage(tempratureMessages[cnt]);
+
+    for (const auto& limit : tempratureLimits) {
+        if (isMinLimit(value, limit, tempratureMessages[0]) ||
+            isMaxLimit(value, limit, tempratureMessages[4]) ||
+            isWithinLimit(value, limit, tempratureMessages[cnt])) {
             break;
         }
         cnt++;
     }
 
-    if (tempratureMessages[cnt].find("Normal") != std::string::npos) {
-        return true;
-    }
-    return false;
+    return tempratureMessages[cnt].find("Normal") != std::string::npos;
 }
+
 
 bool isPulseNormal(float value) {
     int cnt = 0;
-    for (auto i = pulseRateLimits.begin(); i != pulseRateLimits.end(); i++) {
-        if (i->first == std::numeric_limits<float>::min() && value < i->second) {
-            writeMessage(pulseRateMessages[0]);
-            std::cout<<pulseRateMessages[0]<<"\n";
-            break;
-        } else if (i->second == std::numeric_limits<float>::max() && value > i->first) {
-            writeMessage(pulseRateMessages[2]);
-            std::cout<<pulseRateMessages[2]<<"\n";
-            break;
-        } else if ((value >= i->first) && (value <= i->second)) {
-            writeMessage(pulseRateMessages[cnt]);
-            std::cout<<pulseRateMessages[cnt]<<"\n";
+   for (const auto& limit : pulseRateLimits) {
+        if (isMinLimit(value, limit, pulseRateMessages[0]) ||
+            isMaxLimit(value, limit, pulseRateMessages[4]) ||
+            isWithinLimit(value, limit, pulseRateMessages[cnt])) {
             break;
         }
         cnt++;
     }
-    if (pulseRateMessages[cnt].find("Normal") != std::string::npos) {
-        return true;
-    }
-    return false;
+    return pulseRateMessages[cnt].find("Normal") != std::string::npos;
+   
 }
 
-bool isSPO2Normal(int value) {
+bool isSPO2Normal(float value) {
     int cnt = 0;
-    for (auto i = spo2Limits.begin(); i != spo2Limits.end(); i++) {
-        if (i->first == std::numeric_limits<float>::min() && value < i->second) {
-            writeMessage(spo2Messages[0]);
-            break;
-        } else if (i->second == std::numeric_limits<float>::max() && value > i->first) {
-            writeMessage(spo2Messages[1]);
-            break;
-        } else if ((value >= i->first) && (value <= i->second)) {
-            writeMessage(spo2Messages[cnt]);
+    for (const auto& limit : spo2Limits) {
+        if (isMinLimit(value, limit, spo2Messages[0]) ||
+            isMaxLimit(value, limit, spo2Messages[4]) ||
+            isWithinLimit(value, limit, spo2Messages[cnt])) {
             break;
         }
         cnt++;
     }
-    if (spo2Messages[cnt].find("Normal") != std::string::npos) {
-        return true;
-    }
-    return false;
+    return spo2Messages[cnt].find("Normal") != std::string::npos;
 }
 
 int vitalsOk(float temperature, float pulseRate, float spo2) {
