@@ -115,19 +115,6 @@ bool isWithinLimit(T value, const std::pair<T,T>& limit, const std::string& mess
     return false;
 }
 
-/* bool isParameterNormal(double value,ParameterType type){
-    switch(type){
-        case TEMPERATURE:
-             return isTempraturNormal(value);
-        case PULSE_RATE:
-             return isPulseNormal(value);
-        case SPO2:
-            return isSPO2Normal(value);
-        }
-    return false;        
-}
- */
-
 bool isParameterNormal(double value, ParameterType type) {
     static const std::unordered_map<ParameterType, std::function<bool(double)>> checkFunctions = {
         { TEMPERATURE, [](double v) { return isTempraturNormal(static_cast<int>(v)); } },

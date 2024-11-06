@@ -15,7 +15,7 @@ void initializePulseRateLimits();
 void initializeSPo2Limits();
 bool isTempraturNormal(int value);
 bool isPulseNormal(float value);
-bool isSPO2Normal(int value);
+bool isSPO2Normal(float value);
 
 int vitalsOk(float temperature, float pulseRate, float spo2);
 void sleep();
