@@ -132,13 +132,12 @@ bool isParameterNormal(double value, ParameterType type) {
 
 bool isTempraturNormal(int value) {
     int cnt = 0;
-
     for (const auto& limit : tempratureLimits) {
-        if (isMinLimit(value, limit, tempratureMessages[0]) ||
+        if (isMinLimit(value, limit, tempratureMessages[0]) || 
             isMaxLimit(value, limit, tempratureMessages[4]) ||
             isWithinLimit(value, limit, tempratureMessages[cnt])) {
             break;
-        }
+        } 
         cnt++;
     }
 
@@ -164,8 +163,7 @@ bool isSPO2Normal(float value) {
     int cnt = 0;
     for (const auto& limit : spo2Limits) {
         if (isMinLimit(value, limit, spo2Messages[0]) ||
-            isMaxLimit(value, limit, spo2Messages[4]) ||
-            isWithinLimit(value, limit, spo2Messages[cnt])) {
+            isMaxLimit(value, limit, spo2Messages[2])) {
             break;
         }
         cnt++;
