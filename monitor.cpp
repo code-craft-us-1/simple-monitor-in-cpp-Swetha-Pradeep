@@ -152,9 +152,13 @@ bool isTempraturNormal(int value) {
 bool isPulseNormal(float value) {
     int cnt = 0;
    for (const auto& limit : pulseRateLimits) {
-        if (isMinLimit(value, limit, pulseRateMessages[0]) ||
-            isMaxLimit(value, limit, pulseRateMessages[4]) ||
-            isWithinLimit(value, limit, pulseRateMessages[cnt])) {
+        if (isMinLimit(value, limit, pulseRateMessages[0])){
+            break;
+        } 
+        else if(isMaxLimit(value, limit, pulseRateMessages[4])){
+            break;
+        }
+        else if(isWithinLimit(value, limit, pulseRateMessages[cnt])){
             break;
         }
         cnt++;
@@ -166,8 +170,10 @@ bool isPulseNormal(float value) {
 bool isSPO2Normal(float value) {
     int cnt = 0;
     for (const auto& limit : spo2Limits) {
-        if (isMinLimit(value, limit, spo2Messages[0]) ||
-            isMaxLimit(value, limit, spo2Messages[2])) {
+        if (isMinLimit(value, limit, spo2Messages[0])){
+            break;
+        } 
+        else if(isMaxLimit(value, limit, spo2Messages[2])){
             break;
         }
         cnt++;
