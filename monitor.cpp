@@ -133,9 +133,13 @@ bool isParameterNormal(double value, ParameterType type) {
 bool isTempraturNormal(int value) {
     int cnt = 0;
     for (const auto& limit : tempratureLimits) {
-        if (isMinLimit(value, limit, tempratureMessages[0]) || 
-            isMaxLimit(value, limit, tempratureMessages[4]) ||
-            isWithinLimit(value, limit, tempratureMessages[cnt])) {
+        if (isMinLimit(value, limit, tempratureMessages[0])){
+            break;
+        } 
+        else if(isMaxLimit(value, limit, tempratureMessages[4])){
+            break;
+        }
+        else if(isWithinLimit(value, limit, tempratureMessages[cnt])) {
             break;
         } 
         cnt++;
