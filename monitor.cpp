@@ -43,8 +43,8 @@ bool checkWithinRange(TemperatureRange &range,double temperature){
 
 void initializeTemprature(){
     tempranges.push_back({102, INT_MAX, "Temperature is critically high!\n"});
-    tempranges.push_back({100.48, 102, "Normal"});
-    tempranges.push_back({96.54, 100.47, "Temperature is high!\n"});   
+    tempranges.push_back({100.48, 102, "Temperature is high!\n"});
+    tempranges.push_back({96.54, 100.47, "Normal"});   
     tempranges.push_back({95, 96.53, "Temperature is critically high!\n"});   
     tempranges.push_back({INT_MIN, 95, "Temperature is critically low!\n"});    
     
