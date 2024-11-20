@@ -43,28 +43,18 @@ int checkTemprature(int temperature) {
         {5, {INT_MIN, 95, "Temperature is critically low!\n"}}
     };
 
-  /*  for (const auto& range : tempRanges) {
-        if (temperature >= range.second.minTemp && temperature <= range.second.maxTemp) {
-            if (!range.second.message.empty()) {
-                cout << range.second.message;
-                sleep();
-                return 0;
-            }
-            return 1;
-        }
-    }*/
+ 
      auto it = std::find_if(tempRanges.begin(), tempRanges.end(), [temperature](const TemperatureRange& range) {
         return temperature >= range.minTemp && temperature <= range.maxTemp;
     });
     
 
-    if (it != tempRanges.end()) {
-        if (!it->second.message.empty()) {
+    if ((it != tempRanges.end()) &&(!it->second.message.empty())) {
+        
             std::cout << it->second.message;
             sleep();
             return 0;
-        }
-        return 1;
+        
     }
 
     return 1;
