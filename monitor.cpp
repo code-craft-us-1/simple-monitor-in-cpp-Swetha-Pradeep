@@ -17,6 +17,7 @@ struct TemperatureRange {
     double maxTemp;
     std::string message;
 };
+std::vector<TemperatureRange> tempranges;
 
 void sleep() {
     for (int i = 0; i < 6; i++) {
@@ -26,7 +27,7 @@ void sleep() {
         sleep_for(seconds(1));
     }
 }
-/*int checkTemprature(int temperature) {
+/*int checkTemprature1(int temperature) {
     if (temperature > 102 || temperature < 95) {
         cout << "Temperature is critical!\n";
         sleep();
@@ -39,39 +40,34 @@ void sleep() {
 bool checkWithinRange(TemperatureRange &range,double temperature){
       return temperature >= range.minTemp && temperature <= range.maxTemp;
 }
-int checkTemprature(double temperature) {
-    /*std::map<int, TemperatureRange> tempRanges{
-        {1, {102, INT_MAX, "Temperature is critically high!\n"}},
-        {2, {100.48, 102, ""}}, // Normal range
-        {3, {96.54, 100.47, "Temperature is high!\n"}},
-        {4, {95, 96.53, "Temperature is critically high!\n"}},
-        
-        {5, {INT_MIN, 95, "Temperature is critically low!\n"}}
-    };*/
 
-
-    std::vector<TemperatureRange> tempranges;
+void initializeTemprature(){
     tempranges.push_back({102, INT_MAX, "Temperature is critically high!\n"});
-    tempranges.push_back({100.48, 102, ""});
+    tempranges.push_back({100.48, 102, "Normal"});
     tempranges.push_back({96.54, 100.47, "Temperature is high!\n"});   
     tempranges.push_back({95, 96.53, "Temperature is critically high!\n"});   
     tempranges.push_back({INT_MIN, 95, "Temperature is critically low!\n"});    
+    
+}
+std::string checkTemperature(double temperature) {
+   
+    initializeTemprature();
     
      
      auto it = std::find_if(tempranges.begin(), tempranges.end(), [temperature]( TemperatureRange tempranges) {
         return temperature >= tempranges.minTemp && temperature <= tempranges.maxTemp;
     });
-    
-
-   /* if ((it != tempRanges.end()) &&(!it->second.message.empty())) {
-        
-            std::cout << it->second.message;
-            sleep();
-            return 0;
-        
+    if(it!=tempranges.end()){
+        return it->message;
     }
-*/
-    return 1;
+    return "";
+    
+   
+    
+}
+
+int isTempratureNormal(double temperature) {
+    return checkTemperature(temperature) == "Normal";
 }
 
 int checkPulserate(float pulseRate) {
@@ -92,5 +88,5 @@ int checkSPO2(float spo2) {
     return 1;
 }
 int vitalsOk(float temperature, float pulseRate, float spo2) {
-    return checkTemprature(temperature) && checkPulserate(pulseRate) && checkSPO2(spo2);
+    return isTempratureNormal(temperature) && checkPulserate(pulseRate) && checkSPO2(spo2);
 }
