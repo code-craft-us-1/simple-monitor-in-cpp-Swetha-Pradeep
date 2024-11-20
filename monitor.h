@@ -1,5 +1,6 @@
 #pragma once
 #include<string>
+#include <vector>
 //std::string checkTemperature(double temperature);
 std::string checkParameter(double paramVal,std::vector<ParameterRange> paramranges);
 int isTempratureNormal(double temperature);
