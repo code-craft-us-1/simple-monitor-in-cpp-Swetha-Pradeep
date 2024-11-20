@@ -1,4 +1,5 @@
 #pragma once
+#include<string>
 std::string checkTemperature(double temperature);
 int isTempratureNormal(double temperature);
 int checkPulserate(float pulseRate);
