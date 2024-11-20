@@ -7,6 +7,7 @@
 #include <string>
 #include <algorithm>
 #include <climits>
+#include <vector>
 
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
@@ -35,19 +36,30 @@ void sleep() {
 }
 */
 
-int checkTemprature(int temperature) {
-    std::map<int, TemperatureRange> tempRanges{
+bool checkWithinRange(TemperatureRange &range,double temperature){
+      return temperature >= range.minTemp && temperature <= range.maxTemp;
+}
+int checkTemprature(double temperature) {
+    /*std::map<int, TemperatureRange> tempRanges{
         {1, {102, INT_MAX, "Temperature is critically high!\n"}},
         {2, {100.48, 102, ""}}, // Normal range
         {3, {96.54, 100.47, "Temperature is high!\n"}},
         {4, {95, 96.53, "Temperature is critically high!\n"}},
         
         {5, {INT_MIN, 95, "Temperature is critically low!\n"}}
-    };
+    };*/
 
- 
-     auto it = std::find_if(tempRanges.begin(), tempRanges.end(), [temperature](const TemperatureRange& range) {
-        return temperature >= range.minTemp && temperature <= range.maxTemp;
+
+    std::vector<TemperatureRange> tempranges;
+    tempranges.push_back({102, INT_MAX, "Temperature is critically high!\n"});
+    tempranges.push_back({100.48, 102, ""});
+    tempranges.push_back({96.54, 100.47, "Temperature is high!\n"});   
+    tempranges.push_back({95, 96.53, "Temperature is critically high!\n"});   
+    tempranges.push_back({INT_MIN, 95, "Temperature is critically low!\n"});    
+    
+     
+     auto it = std::find_if(tempranges.begin(), tempranges.end(), [temperature]( TemperatureRange tempranges) {
+        return temperature >= tempranges.minTemp && temperature <= tempranges.maxTemp;
     });
     
 
