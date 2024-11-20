@@ -12,12 +12,14 @@
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
 
-struct TemperatureRange {
-    double minTemp;
-    double maxTemp;
+struct ParameterRange {
+    double minVal;
+    double maxVal;
     std::string message;
 };
-std::vector<TemperatureRange> tempranges;
+std::vector<ParameterRange> tempranges;
+std::vector<ParameterRange> pulseranges;
+std::vector<ParameterRange> spo2ranges;
 
 void sleep() {
     for (int i = 0; i < 6; i++) {
@@ -27,57 +29,51 @@ void sleep() {
         sleep_for(seconds(1));
     }
 }
-/*int checkTemprature1(int temperature) {
-    if (temperature > 102 || temperature < 95) {
-        cout << "Temperature is critical!\n";
-        sleep();
-        return 0;
-    }
-    return 1;
-}
-*/
-
-bool checkWithinRange(TemperatureRange &range,double temperature){
-      return temperature >= range.minTemp && temperature <= range.maxTemp;
-}
 
 void initializeTemprature(){
-    tempranges.push_back({102, INT_MAX, "Temperature is critically high!\n"});
-    tempranges.push_back({100.48, 102, "Temperature is high!\n"});
+    tempranges.push_back({102, INT_MAX, "HYPER_THERMIA!\n"});
+    tempranges.push_back({100.48, 102, "WARNING:NEAR_HYPER!\n"});
     tempranges.push_back({96.54, 100.47, "Normal"});   
-    tempranges.push_back({95, 96.53, "Temperature is critically high!\n"});   
-    tempranges.push_back({INT_MIN, 95, "Temperature is critically low!\n"});    
+    tempranges.push_back({95, 96.53, "Warning:NEAR_HYPO!\n"});   
+    tempranges.push_back({INT_MIN, 95, "Warning:HYPO_THERMIA!\n"});    
     
 }
-std::string checkTemperature(double temperature) {
-   
-    initializeTemprature();
-    
-     
-     auto it = std::find_if(tempranges.begin(), tempranges.end(), [temperature]( TemperatureRange tempranges) {
-        return temperature >= tempranges.minTemp && temperature <= tempranges.maxTemp;
+
+void initializePulseRate(){
+    pulseranges.push_back({60, 100, "Normal"});
+    pulseranges.push_back({INT_MIN, 60, "WARNING:BRADYCARDIA!\n"});
+    pulseranges.push_back({100, INT_MAX, "WARNING:TACHYCARDIA!\n"});
+}
+std::string checkParameter(double paramVal,std::vector<ParameterRange> paramranges) {
+      
+     auto it = std::find_if(paramranges.begin(), paramranges.end(), [paramVal]( ParameterRange paramranges) {
+        return paramVal >= paramranges.minVal && paramVal <= paramranges.maxVal;
     });
-    if(it!=tempranges.end()){
+    if(it!=paramranges.end()){
         return it->message;
     }
     return "";
     
-   
-    
 }
 
 int isTempratureNormal(double temperature) {
-    return checkTemperature(temperature) == "Normal";
+    initializeTemprature();
+    return checkParameter(temperature,tempranges) == "Normal";
 }
 
-int checkPulserate(float pulseRate) {
+int isPulseNormal(double pulse) {
+    initializePulseRate();
+    return checkParameter(pulse,pulseranges) == "Normal";
+}
+
+/*int checkPulserate(float pulseRate) {
     if (pulseRate < 60 || pulseRate > 100) {
         cout << "Pulse Rate is out of range!\n";
         sleep();
         return 0;
     }
     return 1;
-}
+}*/
 
 int checkSPO2(float spo2) {
     if (spo2 < 90) {
@@ -88,5 +84,5 @@ int checkSPO2(float spo2) {
     return 1;
 }
 int vitalsOk(float temperature, float pulseRate, float spo2) {
-    return isTempratureNormal(temperature) && checkPulserate(pulseRate) && checkSPO2(spo2);
+    return isTempratureNormal(temperature) && isPulseNormal(pulseRate) && checkSPO2(spo2);
 }
