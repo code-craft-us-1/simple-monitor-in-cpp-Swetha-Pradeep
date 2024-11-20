@@ -6,12 +6,14 @@
 #include <map>
 #include <string>
 #include <algorithm>
+#include <climits>
+
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
 
 struct TemperatureRange {
-    int minTemp;
-    int maxTemp;
+    double minTemp;
+    double maxTemp;
     std::string message;
 };
 
@@ -34,7 +36,7 @@ void sleep() {
 */
 
 int checkTemprature(int temperature) {
-    std::map<int, TemperatureRange> tempRanges = {
+    std::map<int, TemperatureRange> tempRanges{
         {1, {102, INT_MAX, "Temperature is critically high!\n"}},
         {2, {100.48, 102, ""}}, // Normal range
         {3, {96.54, 100.47, "Temperature is high!\n"}},
