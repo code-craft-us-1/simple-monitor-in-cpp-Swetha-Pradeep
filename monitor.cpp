@@ -12,11 +12,7 @@
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
 
-struct ParameterRange {
-    double minVal;
-    double maxVal;
-    std::string message;
-};
+
 std::vector<ParameterRange> tempranges;
 std::vector<ParameterRange> pulseranges;
 std::vector<ParameterRange> spo2ranges;
