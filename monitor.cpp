@@ -49,14 +49,14 @@ int checkTemprature(int temperature) {
     });
     
 
-    if ((it != tempRanges.end()) &&(!it->second.message.empty())) {
+   /* if ((it != tempRanges.end()) &&(!it->second.message.empty())) {
         
             std::cout << it->second.message;
             sleep();
             return 0;
         
     }
-
+*/
     return 1;
 }
 
