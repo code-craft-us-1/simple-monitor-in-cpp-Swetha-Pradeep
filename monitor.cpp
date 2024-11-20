@@ -40,6 +40,12 @@ void initializePulseRate(){
     pulseranges.push_back({INT_MIN, 60, "WARNING:BRADYCARDIA!\n"});
     pulseranges.push_back({100, INT_MAX, "WARNING:TACHYCARDIA!\n"});
 }
+
+void initializeSpo2(){
+    spo2ranges.push_back({80, INT_MAX, "Normal"});
+    spo2ranges.push_back({INT_MIN, 80, "WARNING:HYPOXEMIA!\n"});
+}
+
 std::string checkParameter(double paramVal,std::vector<ParameterRange> paramranges) {
       
      auto it = std::find_if(paramranges.begin(), paramranges.end(), [paramVal]( ParameterRange paramranges) {
@@ -62,6 +68,11 @@ int isPulseNormal(double pulse) {
     return checkParameter(pulse,pulseranges) == "Normal";
 }
 
+int isSPo2Normal(double spo2) {
+    initializeSpo2();
+    return checkParameter(spo2,spo2ranges) == "Normal";
+}
+
 /*int checkPulserate(float pulseRate) {
     if (pulseRate < 60 || pulseRate > 100) {
         cout << "Pulse Rate is out of range!\n";
@@ -71,14 +82,14 @@ int isPulseNormal(double pulse) {
     return 1;
 }*/
 
-int checkSPO2(float spo2) {
+/*int checkSPO2(float spo2) {
     if (spo2 < 90) {
         cout << "Oxygen Saturation out of range!\n";
         sleep();
         return 0;
     }
     return 1;
-}
+}*/
 int vitalsOk(float temperature, float pulseRate, float spo2) {
-    return isTempratureNormal(temperature) && isPulseNormal(pulseRate) && checkSPO2(spo2);
+    return isTempratureNormal(temperature) && isPulseNormal(pulseRate) && isSPo2Normal(spo2);
 }
