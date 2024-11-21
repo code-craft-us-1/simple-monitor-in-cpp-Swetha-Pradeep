@@ -17,6 +17,8 @@ std::vector<ParameterRange> tempranges;
 std::vector<ParameterRange> pulseranges;
 std::vector<ParameterRange> spo2ranges;
 
+
+
 void sleep() {
     for (int i = 0; i < 6; i++) {
         cout << "\r* " << flush;
@@ -26,24 +28,49 @@ void sleep() {
     }
 }
 
-void initializeTemprature(){
-    tempranges.push_back({102, INT_MAX, "HYPER_THERMIA!\n"});
-    tempranges.push_back({100.48, 102, "WARNING:NEAR_HYPER!\n"});
-    tempranges.push_back({96.54, 100.47, "Normal"});   
-    tempranges.push_back({95, 96.53, "Warning:NEAR_HYPO!\n"});   
-    tempranges.push_back({INT_MIN, 95, "Warning:HYPO_THERMIA!\n"});    
+void initializeTemprature(std::string language){
+
+    if(language=="English"){
+        tempranges.push_back({102, INT_MAX, "HYPER_THERMIA!\n"});
+        tempranges.push_back({100.48, 102, "WARNING:NEAR_HYPER!\n"});
+        tempranges.push_back({96.54, 100.47, "Normal"});   
+        tempranges.push_back({95, 96.53, "Warning:NEAR_HYPO!\n"});   
+        tempranges.push_back({INT_MIN, 95, "Warning:HYPO_THERMIA!\n"});    
+    }
+    else if(language=="German"){
+        tempranges.push_back({102, INT_MAX, "Hyperthermie!\n"});
+        tempranges.push_back({100.48, 102, "Warnung:in der Nähe von Hyperthermie!\n"});
+        tempranges.push_back({96.54, 100.47, "Normal"});   
+        tempranges.push_back({95, 96.53, "Warnung:nahe der Hypothermie!\n"});   
+        tempranges.push_back({INT_MIN, 95, "Warnung:Hypothermie!\n"});    
+    }
     
 }
 
-void initializePulseRate(){
-    pulseranges.push_back({60, 100, "Normal"});
-    pulseranges.push_back({INT_MIN, 60, "WARNING:BRADYCARDIA!\n"});
-    pulseranges.push_back({100, INT_MAX, "WARNING:TACHYCARDIA!\n"});
+void initializePulseRate(std::string language){
+
+    if(language =="English"){
+        pulseranges.push_back({60, 100, "Normal"});
+        pulseranges.push_back({INT_MIN, 60, "Warning:Bradycardia!\n"});
+        pulseranges.push_back({100, INT_MAX, "Warning:Tachycardia!\n"});
+    }
+    else if(language=="German"){
+        pulseranges.push_back({60, 100, "Normal"});
+        pulseranges.push_back({INT_MIN, 60, "Warnung:Bradykardie!\n"});
+        pulseranges.push_back({100, INT_MAX, "Warnung:Tachykardie!\n"});
+    }
+    
 }
 
-void initializeSpo2(){
-    spo2ranges.push_back({80, INT_MAX, "Normal"});
-    spo2ranges.push_back({INT_MIN, 80, "WARNING:HYPOXEMIA!\n"});
+void initializeSpo2(std::string language){
+    if(language=="English"){
+        spo2ranges.push_back({80, INT_MAX, "Normal"});
+        spo2ranges.push_back({INT_MIN, 80, "Warning:Hypoxemia!\n"});
+    }
+    else if(language=="German"){
+        spo2ranges.push_back({80, INT_MAX, "Normal"});
+        spo2ranges.push_back({INT_MIN, 80, "Warnung:Hypoxämie!\n"});
+    }
 }
 
 std::string checkParameter(double paramVal,std::vector<ParameterRange> paramranges) {
@@ -58,38 +85,21 @@ std::string checkParameter(double paramVal,std::vector<ParameterRange> paramrang
     
 }
 
-int isTempratureNormal(double temperature) {
-    initializeTemprature();
+int isTempratureNormal(double temperature,std::string language) {
+    initializeTemprature(language);
     return checkParameter(temperature,tempranges) == "Normal";
 }
 
-int isPulseNormal(double pulse) {
-    initializePulseRate();
+int isPulseNormal(double pulse,std::string language) {
+    initializePulseRate(language);
     return checkParameter(pulse,pulseranges) == "Normal";
 }
 
-int isSPo2Normal(double spo2) {
-    initializeSpo2();
+int isSPo2Normal(double spo2,std::string language) {
+    initializeSpo2(language);
     return checkParameter(spo2,spo2ranges) == "Normal";
 }
 
-/*int checkPulserate(float pulseRate) {
-    if (pulseRate < 60 || pulseRate > 100) {
-        cout << "Pulse Rate is out of range!\n";
-        sleep();
-        return 0;
-    }
-    return 1;
-}*/
-
-/*int checkSPO2(float spo2) {
-    if (spo2 < 90) {
-        cout << "Oxygen Saturation out of range!\n";
-        sleep();
-        return 0;
-    }
-    return 1;
-}*/
-int vitalsOk(float temperature, float pulseRate, float spo2) {
-    return isTempratureNormal(temperature) && isPulseNormal(pulseRate) && isSPo2Normal(spo2);
+int vitalsOk(float temperature, float pulseRate, float spo2,std::string language) {
+    return isTempratureNormal(temperature,language) && isPulseNormal(pulseRate,language) && isSPo2Normal(spo2,language);
 }
