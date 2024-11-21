@@ -16,5 +16,5 @@ void initializeSpo2(std::string language);
 int isSPo2Normal(double spo2,std::string language);
 //int checkPulserate(float pulseRate);
 
-int vitalsOk(float temperature, float pulseRate, float spo2);
+int vitalsOk(float temperature, float pulseRate, float spo2,std::string language);
 void sleep();
